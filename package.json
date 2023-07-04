@@ -1,0 +1,16 @@
+{
+  "name": "cusecli",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Command-line tool for looking up Syracuse data",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gavin R. Isgar",
+  "license": "MIT",
+  "dependencies": {
+    "@clack/prompts": "^0.6.3",
+    "axios": "^1.4.0"
+  }
+}
