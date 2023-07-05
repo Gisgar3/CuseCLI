@@ -1,9 +1,12 @@
 // DEVELOPED BY GAVIN R. ISGAR 2023
 
-import { intro, select, text, spinner } from '@clack/prompts';
+import { intro, select, text, spinner, confirm } from '@clack/prompts';
 import axios from "axios";
+import chalk from "chalk";
+const cuseOrange = chalk.hex("#F76900");
+const cuseBlue = chalk.hex("#000E54");
 
-intro("Welcome to CuseCLI! Follow the prompts below to begin searching Syracuse data!");
+intro(cuseOrange.bold("Welcome to CuseCLI! Follow the prompts below to begin searching Syracuse data!"));
 
 /*
 This getDatasets() function is used to gather all the current datasets provided by Syracuse as open data.
@@ -50,19 +53,20 @@ const getDatasets = async (url, paginationReq) => {
         else {
             processSpinner.stop(`Found ${categories.length} datasets`);
             const categorySelect = select({
-                message: "Select a Syracuse dataset",
+                message: cuseBlue.bold("Select a Syracuse dataset"),
                 options: categories
-            });
+            })
+            .then((selectedDataset) => {
+                const confirmDataset = confirm({
+                    message: cuseOrange.bold(`You selected the ${categories[selectedDataset].label} dataset. Is this right?`)
+                });
+            })
         }
     })
     .catch((error) => {
         console.error(error);
     });
 };
-
-const confirmDataset = () => {
-
-}
 
 getDatasets("https://opendata.arcgis.com/api/v3/search");
 //confirmDataset();
