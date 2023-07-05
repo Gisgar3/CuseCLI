@@ -1,6 +1,6 @@
 // DEVELOPED BY GAVIN R. ISGAR 2023
 
-import { intro, select, text, spinner, confirm } from '@clack/prompts';
+import { intro, select, text, spinner, confirm, note, cancel, selectKey} from '@clack/prompts';
 import axios from "axios";
 import chalk from "chalk";
 const cuseOrange = chalk.hex("#F76900");
@@ -14,6 +14,7 @@ The URL used in the HTTP request was gathered using BurpSuite.
 */
 let categories = [];
 const processSpinner = spinner();
+
 processSpinner.start("Pulling datasets...");
 const getDatasets = async (url, paginationReq) => {
     let method = "GET";
@@ -58,7 +59,7 @@ const getDatasets = async (url, paginationReq) => {
             })
             .then((selectedDataset) => {
                 const confirmDataset = confirm({
-                    message: cuseOrange.bold(`You selected the ${categories[selectedDataset].label} dataset. Is this right?`)
+                    message: cuseOrange.bold(`You selected the ${chalk.underline(categories[selectedDataset].label)} dataset. Confirm selection?`)
                 });
             })
         }
@@ -69,6 +70,7 @@ const getDatasets = async (url, paginationReq) => {
 };
 
 getDatasets("https://opendata.arcgis.com/api/v3/search");
+
 //confirmDataset();
 /*switch (url) {
     case null: {
